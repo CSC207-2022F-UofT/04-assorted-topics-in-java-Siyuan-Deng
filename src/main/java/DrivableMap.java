@@ -30,7 +30,7 @@ class DrivableMap {
      */
     public boolean addDrivable(String objectID, Drivable item){
         if (!this.drivable_map.containsKey(objectID)){
-            this.addDrivable(objectID, item);
+            this.drivable_map.put(objectID, item);
             return true;
         }
         return false;
@@ -45,29 +45,25 @@ class DrivableMap {
      * iterate through drivable_map.
      */
     public boolean hasFasterThan(int speed){
-        ArrayList<String> keySet = (ArrayList<String>) drivable_map.keySet();
-        for (int i = 0; i < keySet.size(); i++){
-            if (this.drivable_map.get(keySet.get(i)).getMaxSpeed() >= speed){
+        Collection<Drivable> keySet = drivable_map.values();
+        for (Drivable item: keySet){
+            if (item.getMaxSpeed() >= speed){
                 return true;
             }
         }
         return false;
     }
 
-
-
-
     /* TODO: Write a method named getTradable that takes no arguments and
      *       returns a List containing all of the Tradable items in
      *       drivable_map.
      */
     public List<Tradable> getTradable(){
-        ArrayList<String> keySet = (ArrayList<String>) drivable_map.keySet();
+        Collection<Drivable> keySet = drivable_map.values();
         List<Tradable> result = new ArrayList<>();
-        for (int i = 0; i < keySet.size(); i++){
-            if (this.drivable_map.get(keySet.get(i)) instanceof Tradable){
-                Tradable item = (Tradable) this.drivable_map.get(keySet.get(i));
-                result.add(item);
+        for (Drivable item: keySet){
+            if (item instanceof Tradable){
+                result.add((Tradable)item);
             }
         }
         return result;
